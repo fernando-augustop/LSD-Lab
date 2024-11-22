@@ -1,26 +1,24 @@
-LIBRARY IEEE
+LIBRARY IEEE;
 
 USE IEEE.STD_LOGIC_1164.ALL;
 
 ENTITY ATIVIDADE1 IS
-    PORT(
-        S: IN STD_LOGIC_VECTOR (0 TO 2);
-        D: IN STD_LOGIC_VECTOR (0 TO 7);
-        Y: OUT STD_LOGIC);  
+    PORT(S: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+         D: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+         Y: OUT STD_LOGIC);  
+
 
 END ATIVIDADE1;
 
 ARCHITECTURE ATIVIDADE1_ARCHITECTURE OF ATIVIDADE1 IS
 BEGIN
-   Y <= D(0) WHEN (S(0) = '0' AND S(1) = '0' AND S(2) = '0') ELSE
-        D(1) WHEN (S(0) = '0' AND S(1) = '0' AND S(2) = '1') ELSE
-        D(2) WHEN (S(0) = '0' AND S(1) = '1' AND S(2) = '0') ELSE
-        D(3) WHEN (S(0) = '0' AND S(1) = '1' AND S(2) = '1') ELSE
-        D(4) WHEN (S(1) = '0' AND S(1) = '0' AND S(2) = '0') ELSE
-        D(5) WHEN (S(1) = '0' AND S(1) = '0' AND S(2) = '1') ELSE
-        D(6) WHEN (S(0) = '1' AND S(1) = '1' AND S(2) = '0') ELSE
-        D(7) WHEN (S(0) = '1' AND S(1) = '1' AND S(2) = '1') ELSE
+   Y <= D(0) WHEN S="000" ELSE
+        D(1) WHEN S="001" ELSE
+        D(2) WHEN S="010" ELSE
+        D(3) WHEN S="011" ELSE
+        D(4) WHEN S="100" ELSE
+        D(5) WHEN S="101" ELSE
+        D(6) WHEN S="110" ELSE
+        D(7) WHEN S="111" ELSE
         '0';
-
 END ATIVIDADE1_ARCHITECTURE;    
-
