@@ -17,13 +17,13 @@ architecture Comportamento of entradas_e_saidas is
 
 begin
 
-    -- InstÃ¢ncia da porta inversora
+    -- Instância da porta inversora
     U1: entity work.not_gate port map (A => A, Y => A_not);
 
     -- Assign inputs to intermediate signal
     S_sig <= (B & C);
 
-    -- InstÃ¢ncia do primeiro multiplexador para saÃ­da X
+    -- Instância do primeiro multiplexador para saída X
     MUX1: entity work.mux4x1 port map (
         S => S_sig, -- Use the intermediate signal
         D0 => '0',
@@ -34,17 +34,17 @@ begin
     );
 
 
-    -- InstÃ¢ncia do segundo multiplexador para saÃ­da Y
+    -- Instância do segundo multiplexador para saída Y
     MUX2: entity work.mux4x1 port map (
         S => S_sig, -- Use the intermediate signal
         D0 => A_not,
-        D1 => '0',
-        D2 => A_not,
+        D1 => A_not,
+        D2 => '0',
         D3 => A,
         Y => mux2_out
     );
 
-    -- AtribuiÃ§Ã£o das saÃ­das
+    -- Atribuição das saídas
     X <= mux1_out;
     Y <= mux2_out;
 

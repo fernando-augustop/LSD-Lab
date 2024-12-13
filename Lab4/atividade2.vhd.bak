@@ -19,16 +19,22 @@ architecture Estrutura of funcao_logica is
     signal dec_out : STD_LOGIC_VECTOR (15 downto 0);
     signal mux_in : STD_LOGIC_VECTOR (7 downto 0);
     signal or_out : STD_LOGIC;
+    signal I_sig : STD_LOGIC_VECTOR(3 downto 0); -- Intermediate signal for I
+    signal S_sig : STD_LOGIC_VECTOR(2 downto 0); -- Intermediate signal for S
 
 begin
 
-    -- Inst‚ncia do Decodificador 4x16
+    -- Assign inputs to intermediate signals
+    I_sig <= (A & B & C & D);
+    S_sig <= (E & F & G);
+
+    -- Inst√¢ncia do Decodificador 4x16
     DEC: entity work.decodificador_4x16 port map (
-        I => (A & B & C & D),
+        I => I_sig,
         Y => dec_out
     );
 
-    -- Inst‚ncia da porta OR
+    -- Inst√¢ncia da porta OR
     OR1: entity work.or_gate port map (
         A => dec_out(0),
         B => dec_out(8),
@@ -36,7 +42,7 @@ begin
         Y => or_out
     );
 
-    -- Conex„o das entradas do Multiplexador
+    -- Conex√£o das entradas do Multiplexador
     mux_in(0) <= or_out;
     mux_in(1) <= dec_out(1);
     mux_in(2) <= dec_out(2);
@@ -46,9 +52,9 @@ begin
     mux_in(6) <= dec_out(6);
     mux_in(7) <= dec_out(7);
 
-    -- Inst‚ncia do Multiplexador 8x1
+    -- Inst√¢ncia do Multiplexador 8x1
     MUX: entity work.mux_8x1 port map (
-        S => (E & F & G), -- Change this line to ensure S is globally static
+        S => S_sig,
         D => mux_in,
         Y => Z
     );
