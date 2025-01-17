@@ -5,12 +5,12 @@ entity shift_register is
     Port ( 
         CLK : in STD_LOGIC;
         RST : in STD_LOGIC;                     -- Reset
-        LOAD : in STD_LOGIC;                    -- Load parallel data
-        D : in STD_LOGIC_VECTOR(3 downto 0);    -- Parallel data input
-        DIR : in STD_LOGIC;                     -- Shift direction (0=left, 1=right)
-        L : in STD_LOGIC;                       -- Left input
-        R : in STD_LOGIC;                       -- Right input
-        Q : out STD_LOGIC_VECTOR(3 downto 0)    -- Output
+        LOAD : in STD_LOGIC;                    -- Carregar dados paralelos
+        D : in STD_LOGIC_VECTOR(3 downto 0);    -- Entrada de dados paralelos
+        DIR : in STD_LOGIC;                     -- Direção do deslocamento (0=esquerda, 1=direita)
+        L : in STD_LOGIC;                       -- Entrada esquerda
+        R : in STD_LOGIC;                       -- Entrada direita
+        Q : out STD_LOGIC_VECTOR(3 downto 0)    -- Saída
     );
 end shift_register;
 
@@ -20,17 +20,17 @@ begin
     process(CLK)
     begin
         if rising_edge(CLK) then
-            -- Reset condition (highest priority)
+            -- Condição de reset (prioridade mais alta)
             if RST = '1' then
                 current_state <= "0000";
             
-            -- Load parallel data
+            -- Carregar dados paralelos
             elsif LOAD = '1' then
                 current_state <= D;
             
-            -- Shift operations when not loading
+            -- Operações de deslocamento quando não estiver carregando
             elsif LOAD = '0' then
-                -- Left shift
+                -- Deslocamento para a esquerda
                 if DIR = '0' then
                     if L = '0' then
                         current_state <= current_state(2 downto 0) & '0';

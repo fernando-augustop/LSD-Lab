@@ -17,29 +17,29 @@ architecture Behavioral of jk_flipflop is
 begin
     process(CLK, PR, CLR)
     begin
-        -- Asynchronous Preset
+        -- Pré-ajuste Assíncrono
         if (PR = '1') then
             current_state <= '1';
-        -- Asynchronous Clear
+        -- Limpeza Assíncrona
         elsif (CLR = '1') then
             current_state <= '0';
-        -- Synchronous operations
+        -- Operações Síncronas
         elsif rising_edge(CLK) then
             case std_logic_vector'(J & K) is
-                when "00" =>   -- Hold state
+                when "00" =>   -- Manter estado
                     current_state <= current_state;
-                when "01" =>   -- Reset
+                when "01" =>   -- Resetar
                     current_state <= '0';
-                when "10" =>   -- Set
+                when "10" =>   -- Ajustar
                     current_state <= '1';
-                when "11" =>   -- Toggle
+                when "11" =>   -- Alternar
                     current_state <= not current_state;
-                when others => -- No change
+                when others => -- Sem mudança
                     current_state <= current_state;
             end case;
         end if;
     end process;
 
-    -- Output assignment
+    -- Atribuição de saída
     Q <= current_state;
 end Behavioral;
