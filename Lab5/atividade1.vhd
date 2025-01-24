@@ -30,7 +30,7 @@ end adder_4bit;
 
 architecture Structural of adder_4bit is
     signal C : STD_LOGIC_VECTOR (4 downto 0);
-    signal S : STD_LOGIC_VECTOR (3 downto 0);
+    signal Sum : STD_LOGIC_VECTOR (3 downto 0);
 
     component full_adder
         Port ( A : in STD_LOGIC;
@@ -42,12 +42,12 @@ architecture Structural of adder_4bit is
 
 begin
     -- Conexões dos somadores completos
-    FA0: full_adder Port map (A(0), B(0), '0', S(0), C(1));
-    FA1: full_adder Port map (A(1), B(1), C(1), S(1), C(2));
-    FA2: full_adder Port map (A(2), B(2), C(2), S(2), C(3));
-    FA3: full_adder Port map (A(3), B(3), C(3), S(3), C(4));
+    FA0: full_adder Port map (A(0), B(0), '0', Sum(0), C(1));
+    FA1: full_adder Port map (A(1), B(1), C(1), Sum(1), C(2));
+    FA2: full_adder Port map (A(2), B(2), C(2), Sum(2), C(3));
+    FA3: full_adder Port map (A(3), B(3), C(3), Sum(3), C(4));
 
     -- Saída final
-    S(3 downto 0) <= S;
+    S(3 downto 0) <= Sum;
     S(4) <= C(4);
 end Structural;
